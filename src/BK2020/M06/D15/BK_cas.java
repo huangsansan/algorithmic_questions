@@ -35,7 +35,8 @@ import java.util.concurrent.atomic.AtomicStampedReference;
  *     假设两个线程，一个线程A操作慢，一个线程B操作快，当A执行的时候，B执行了多次，第一次将值改为其他，之后又改回来，对于A线程来说在比较内存中的值的时候是没有变化的
  *     也就是说B更新了多次变量，而A变量看到的值还是原来的，直接判读为true就进行了赋值。
  *
- *  7、原子引用：
+ *  7、原子引用：AtomicStampedReference
+ *  8、ABA问题：假设一个场景，判断账户中的钱少于20快增加10快，每次增加后，用户又花了10快，下一个现场判断还是小于20，继续增加。产生ABA问题
  *
  */
 public class BK_cas {
