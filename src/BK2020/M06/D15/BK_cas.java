@@ -42,6 +42,7 @@ import java.util.concurrent.atomic.AtomicStampedReference;
 public class BK_cas {
 
     public static void main(String[] args) {
+        System.out.println();
         //验证CAS
 //        showCAS();
 
