@@ -3,7 +3,7 @@ package BK2020.M06.D19;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @description:
+ * @description: 让一些线程阻塞，知道另一些线程完成一些操作后才被唤醒
  * @Author: huangsan
  * @Date: 2020/6/19 2:53 下午
  */
