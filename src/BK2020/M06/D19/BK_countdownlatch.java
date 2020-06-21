@@ -9,19 +9,19 @@ import java.util.concurrent.CountDownLatch;
  */
 public class BK_countdownlatch {
     public static void main(String[] args) {
-        CountDownLatch countDownLatch = new CountDownLatch(10);
+        CountDownLatch countDownLatch = new CountDownLatch(6);
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 6; i++) {
             new Thread(() -> {
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("学生" + Thread.currentThread().getName() + "离开教室");
+                System.out.println(Thread.currentThread().getName() + "国被灭");
                 countDownLatch.countDown();
 
-            }, String.valueOf(i)).start();
+            }, BK_CityEnum.getNameByEcode(i)).start();
         }
 
         try {
@@ -29,6 +29,7 @@ public class BK_countdownlatch {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("--------------班长锁门，离开教室");
+        System.out.println("--------------大秦一统天下");
+
     }
 }
