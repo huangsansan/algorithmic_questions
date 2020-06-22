@@ -1,5 +1,6 @@
 package BK2020.M06.D21;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -35,7 +36,7 @@ public class BK_SynchronizedAndLock {
 
     public volatile int flag=1;
 
-    public ReentrantLock lock = new ReentrantLock();
+    public static ReentrantLock lock = new ReentrantLock();
     public Condition ac = lock.newCondition();
     public Condition bc = lock.newCondition();
     public Condition cc = lock.newCondition();
@@ -93,23 +94,60 @@ public class BK_SynchronizedAndLock {
     }
 
     public static void main(String[] args) {
-        BK_SynchronizedAndLock synchronizedAndLock = new BK_SynchronizedAndLock();
-        new Thread(() -> {
-            for (int j = 1; j <= 5; j++) {
-                synchronizedAndLock.doSomethingA();
+//        BK_SynchronizedAndLock synchronizedAndLock = new BK_SynchronizedAndLock();
+//        new Thread(() -> {
+//            for (int j = 1; j <= 5; j++) {
+//                synchronizedAndLock.doSomethingA();
+//            }
+//        }, "A").start();
+//
+//        new Thread(() -> {
+//            for (int j = 1; j <= 5; j++) {
+//                synchronizedAndLock.doSomethingB();
+//            }
+//        }, "B").start();
+//
+//        new Thread(() -> {
+//            for (int j = 1; j <= 5; j++) {
+//                synchronizedAndLock.doSomethingC();
+//            }
+//        }, "C").start();
+        
+        lock.lock();
+        
+//        new Thread(() -> {
+////            try {
+////                System.out.println(lock.tryLock(5, TimeUnit.SECONDS));
+////                System.out.println("我获取了锁");
+////            } catch (InterruptedException e) {
+////                e.printStackTrace();
+////            } finally {
+////                System.out.println("我释放了");
+////                lock.unlock();
+////            }
+////        }, "children1").start();
+        Thread ct2 = new Thread(() -> {
+            try {
+                lock.lockInterruptibly();
+                System.out.println("我是一个等待的代码");
+            } catch (InterruptedException e) {
+                System.out.println("我竟然被中断了，我擦。。。");
             }
-        }, "A").start();
+        }, "children2");
 
-        new Thread(() -> {
-            for (int j = 1; j <= 5; j++) {
-                synchronizedAndLock.doSomethingB();
-            }
-        }, "B").start();
+        ct2.start();
 
-        new Thread(() -> {
-            for (int j = 1; j <= 5; j++) {
-                synchronizedAndLock.doSomethingC();
-            }
-        }, "C").start();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ct2.interrupt();
+
+
+        lock.unlock();
+        System.out.println("main结束");
+
     }
 }
