@@ -10,7 +10,11 @@
     </appender>
 
 
-    <logger name="BK2021" level="debug" additivity="false">
+    <logger name="com.hhb.netty" level="debug" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="io.netty.handler.logging.LoggingHandler" level="debug" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
