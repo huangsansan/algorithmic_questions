@@ -27,8 +27,8 @@ public class LengthFieldServe {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel nc) throws Exception {
-                        nc.pipeline().addLast(new LoggingHandler(LogLevel.DEBUG));
-                        nc.pipeline().addLast(new LengthFieldBasedFrameDecoder(100,0,2,3,2) {
+//                        nc.pipeline().addLast(new LoggingHandler(LogLevel.DEBUG));
+                        nc.pipeline().addLast(new LengthFieldBasedFrameDecoder(100,1,2,3,6) {
                             @Override
                             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                                 ByteBuf byteBuf = (ByteBuf) msg;

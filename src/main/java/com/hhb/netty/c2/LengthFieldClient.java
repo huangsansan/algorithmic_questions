@@ -37,9 +37,17 @@ public class LengthFieldClient {
                             @Override
                             public void channelActive(ChannelHandlerContext ctx) throws Exception {
                                 ByteBuf buffer = ctx.alloc().buffer();
+                                buffer.writeBytes("T".getBytes());
                                 buffer.writeShort(6);
+//                                buffer.writeBytes("123".getBytes());
                                 buffer.writeBytes("123456789".getBytes());
                                 ctx.writeAndFlush(buffer);
+
+                                ByteBuf buffer2 = ctx.alloc().buffer();
+                                buffer2.writeBytes("Z".getBytes());
+                                buffer2.writeShort(12);
+                                buffer2.writeBytes("xxx--hellonetty".getBytes());
+                                ctx.writeAndFlush(buffer2);
                                 super.channelActive(ctx);
                             }
                         });
