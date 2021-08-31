@@ -78,8 +78,11 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         } else if (serializableType == 1) {
             //json
             log.info("{} , {} , {} , {} , {} , {}", magic, version, serializableType, type, sequenceId, length);
-//            if ()
-            message = JSONObject.parseObject(new String(bytes, Charset.defaultCharset()), RpcRequestMessage.class);
+            if (type == 0) {
+                message = JSONObject.parseObject(new String(bytes, Charset.defaultCharset()), RpcRequestMessage.class);
+            } else {
+                message = JSONObject.parseObject(new String(bytes, Charset.defaultCharset()), RpcResponseMessage.class);
+            }
             log.info("json message: {}", message);
         }
         out.add(message);

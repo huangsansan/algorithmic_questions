@@ -1,6 +1,7 @@
 package com.hhb.netty.rpc;
 
 import com.hhb.netty.rpc_env.ServiceFactory;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import java.lang.reflect.Method;
  * @Date: 2021/8/30 下午9:09
  */
 @Slf4j
+@ChannelHandler.Sharable
 public class RpcRequestMessageHandler extends SimpleChannelInboundHandler<RpcRequestMessage> {
 
     @Override
@@ -27,7 +29,7 @@ public class RpcRequestMessageHandler extends SimpleChannelInboundHandler<RpcReq
             responseMessage.setReturnValue(invoke);
         } catch (Exception e) {
             e.printStackTrace();
-            responseMessage.setExceptionValue(e);
+            responseMessage.setExceptionValue(e.getCause().getMessage());
         }
         responseMessage.setSequenceId(message.getSequenceId());
         ctx.writeAndFlush(responseMessage);

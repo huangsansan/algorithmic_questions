@@ -14,8 +14,6 @@ public class RpcResponseMessage extends Message {
     private Object returnValue;
 
     //异常返回值
-    private Exception exceptionValue;
-
-    private int messageType = 102;
+    private String exceptionValue;
 
 }

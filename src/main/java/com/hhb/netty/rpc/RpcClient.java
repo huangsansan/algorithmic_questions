@@ -53,7 +53,7 @@ public class RpcClient {
                     "helloWord",
                     String.class,
                     new Class[]{String.class},
-                    new Object[]{"黄三"}
+                    new Object[]{"阿加西"}
             ));
             future.addListener(promise -> {
                 if (!promise.isSuccess()) {

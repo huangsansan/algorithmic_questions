@@ -3,6 +3,8 @@ package com.hhb.netty.rpc;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @description:
@@ -28,10 +30,4 @@ public class Message implements Serializable {
     //存储请求和相应中的版本ID，保证一一对应
     public int sequenceId;
 
-    public static final int RPC_MESSAGE_TYPE_REQUEST = 101;
-    public static final int RPC_MESSAGE_TYPE_RESPONSE = 102;
-
-    static {
-
-    }
 }
