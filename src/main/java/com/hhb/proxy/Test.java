@@ -16,6 +16,7 @@ public class Test {
         UserService service = new UserServiceImpl();
         System.out.println("遍历1");
         System.out.println(Arrays.toString(service.getClass().getInterfaces()));
+        System.out.println(service.getClass().getInterfaces().length);
         System.out.println("遍历2 为空 不符合");
         System.out.println(Arrays.toString(UserService.class.getInterfaces()));
         System.out.println("遍历2");
@@ -34,12 +35,20 @@ public class Test {
         System.out.println();
         System.out.println("方法3");
         UserService proxy3 = (UserService) Proxy.newProxyInstance(service.getClass().getClassLoader(), service.getClass().getInterfaces(), (loader, method, arg) -> {
-            System.out.println("------start 动态代理增强------");
-            Object mess = method.invoke(service, arg);
-            System.out.println("------end 动态代理增强------");
+            Object mess;
+            if (method.getName().equals("update")) {
+                System.out.println("------start 动态代理增强------");
+                mess = method.invoke(service, arg);
+                System.out.println("------end 动态代理增强------");
+            } else {
+                System.out.println("------start 动态代理增强2------");
+                mess = method.invoke(service, arg);
+                System.out.println("------end 动态代理增强2------");
+            }
             return mess;
         });
         proxy3.update();
+        proxy3.select();
 
     }
 }
